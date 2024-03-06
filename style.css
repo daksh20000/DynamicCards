@@ -25,13 +25,22 @@
     border-radius: 5px;
 }
 
+.filter-btn{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+.filter-btn:hover{
+    cursor: pointer;
+}
+
+
 .cuisine{
     color: rgba(67, 6, 179, 0.76);
     line-height: 19px;
 }
 .res-card1{
     
-    width: 190px;
+    width: 200px;
     border: 1px solid black;
     padding: 10px;
     background-color:rgb(232, 246, 221);
@@ -50,11 +59,12 @@
 .card-text{
     font-size: 14px;
     /* overflow: hidden; */
-    /* line-height: 0px; */
+    line-height: 5px;
     margin-top: 30px;
     margin-left: 10px;
-
-
+}
+.card-title{
+    line-height: 15px;
 }
 .res-card1:hover{
     cursor: pointer;
