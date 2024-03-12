@@ -1,12 +1,9 @@
-import { useState } from "react"
-
-
 // *********************************DATA******************************
 // Dataset taken for swiggy(no commercial usage applies).
 
 
 
-const [RES_DYNAMIC_DATA, setRES_DYNAMIC_DATA] = useState([{
+const resList= [{
     "info": {
         "id": "817232",
         "name": "Samosa Party",
@@ -1248,6 +1245,6 @@ const [RES_DYNAMIC_DATA, setRES_DYNAMIC_DATA] = useState([{
         "type": "WEBLINK"
     },
     "widgetId": "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo"
-}])
+}]
 
-export default RES_DYNAMIC_DATA
+export default resList
