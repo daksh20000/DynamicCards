@@ -1,10 +1,14 @@
 import RestrauntCard from "./Restrauntcard"
 import resList from "../utils/mockData"
 import { useState, useEffect } from "react"
+import Shimmer from "./Shimmer"
 
 const Body = ()=>{
     
-    const [RES_DYNAMIC_DATA, setRES_DYNAMIC_DATA] = useState(resList)
+    const [RES_DYNAMIC_DATA, setRES_DYNAMIC_DATA] = useState([])
+    const [searchText, setSearchText] = useState("")
+    const [filteredRestraunt, setFilteredRestraunt] = useState([])
+
     useEffect(
         ()=>{
             fetchData()
@@ -17,23 +21,45 @@ const Body = ()=>{
             const json = await data.json()
             console.log(json);
             setRES_DYNAMIC_DATA(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+            setFilteredRestraunt(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+            
     }
 
+    console.log("to check rerendering on searchbox");
+//              shimmer practice
 
-    return (
+    // if(RES_DYNAMIC_DATA.length === 0 ){
+    //     return <Shimmer/>
+    // }
+
+    return  RES_DYNAMIC_DATA.length===0 ? (
+        <Shimmer/>
+    ) :         (
         <div className="body">
             <div className="filter">
+                <div className="search">
+                    <input type="text" className="search-box" value={searchText} onChange={(e)=>{
+                        setSearchText(e.target.value)
+                    }}/>
+                    <button className="search-button"
+                    onClick ={
+                        () => {
+                                const searchedRes = RES_DYNAMIC_DATA.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()))
+                                setFilteredRestraunt (searchedRes)
+                        }
+                    }>Search</button>
+                </div>
                 <button className="filter-btn" onClick={()=>{
                     const filteredRating = RES_DYNAMIC_DATA.filter(
-                        (res)=>(res.info.avgRating > 4));
-                        setRES_DYNAMIC_DATA(filteredRating)
+                        (res)=>(res.info.avgRating > 4.3));
+                        setFilteredRestraunt(filteredRating)
                         
                 }}>
                     Top Rated Restraunts
                 </button>
             </div>
             <div className="res-container">
-                {RES_DYNAMIC_DATA.map((eachRestrauntNum)=>(
+                {filteredRestraunt.map((eachRestrauntNum)=>(
                 <RestrauntCard key = {eachRestrauntNum.info.id} resData= {eachRestrauntNum}/>
                 ))}
             </div>
