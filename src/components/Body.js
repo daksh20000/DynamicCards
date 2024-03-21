@@ -1,4 +1,4 @@
-import RestrauntCard from "./Restrauntcard"
+import RestaurantCard from "./Restaurantcard"
 import resList from "../utils/mockData"
 import { useState, useEffect } from "react"
 import Shimmer from "./Shimmer"
@@ -7,7 +7,7 @@ const Body = ()=>{
     
     const [RES_DYNAMIC_DATA, setRES_DYNAMIC_DATA] = useState([])
     const [searchText, setSearchText] = useState("")
-    const [filteredRestraunt, setFilteredRestraunt] = useState([])
+    const [filteredRestaurant, setFilteredRestaurant] = useState([])
 
     useEffect(
         ()=>{
@@ -21,7 +21,7 @@ const Body = ()=>{
             const json = await data.json()
             console.log(json);
             setRES_DYNAMIC_DATA(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-            setFilteredRestraunt(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+            setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
             
     }
 
@@ -45,22 +45,22 @@ const Body = ()=>{
                     onClick ={
                         () => {
                                 const searchedRes = RES_DYNAMIC_DATA.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()))
-                                setFilteredRestraunt (searchedRes)
+                                setFilteredRestaurant (searchedRes)
                         }
                     }>Search</button>
                 </div>
                 <button className="filter-btn" onClick={()=>{
                     const filteredRating = RES_DYNAMIC_DATA.filter(
                         (res)=>(res.info.avgRating > 4.3));
-                        setFilteredRestraunt(filteredRating)
+                        setFilteredRestaurant(filteredRating)
                         
                 }}>
                     Top Rated Restraunts
                 </button>
             </div>
             <div className="res-container">
-                {filteredRestraunt.map((eachRestrauntNum)=>(
-                <RestrauntCard key = {eachRestrauntNum.info.id} resData= {eachRestrauntNum}/>
+                {filteredRestaurant.map((eachRestaurantNum)=>(
+                <RestaurantCard key = {eachRestaurantNum.info.id} resData= {eachRestaurantNum}/>
                 ))}
             </div>
         </div>
